@@ -7,24 +7,23 @@ export const AppContext = createContext();
 const productOne ="https://raw.githubusercontent.com/ivanmirson/hackathon-laboratoria/main/buybox/data-buybox1.json";
 const productTwo = "https://raw.githubusercontent.com/ivanmirson/hackathon-laboratoria/main/buybox/data-buybox2.json"
 const productThree ="https://raw.githubusercontent.com/ivanmirson/hackathon-laboratoria/main/buybox/data-buybox3.json"
+const positions = [productOne, productTwo, productThree]
 
 export function ProductProvider() {
-  const [products, setProducts] = useState([]); //
+  
   const [product, setProduct] = useState({})
 
   const productsData = async () => {
-    const dataOne = await axios.get(productOne)
-    const dataTwo = await axios.get(productTwo)
-    const dataThree = await axios.get(productThree)
-    setProducts([dataOne, dataTwo, dataThree])
+    const randomPosition = Math.floor(Math.random() * (2  + 1))
+    const data = await axios.get(positions[randomPosition])
+    // console.log(data)
+    setProduct(data)
   }
  
 
     useEffect(() => {
        
         productsData()
-        setProduct(products[Math.floor(Math.random() * (3  + 1))
-        ])
     }, []);
 
     return (
